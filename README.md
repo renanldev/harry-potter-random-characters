@@ -15,7 +15,7 @@ Um dos principais focos do desenvolvimento foi garantir que a interface fosse **
 
 # 🌐 Acesse o projeto
 
-👉 [[Abrir aplicação](https://renanldev.github.io/harry-potter-random-characters/)
+👉 [Abrir aplicação](https://renanldev.github.io/harry-potter-random-characters/)
 
 ---
 
