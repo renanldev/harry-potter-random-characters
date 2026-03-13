@@ -8,14 +8,31 @@ body {
   font-family: Arial, sans-serif;
   min-height: 100vh;
 
-  background: linear-gradient(135deg, #0b1d3a, #2e5fa7);
+  background: linear-gradient(-45deg, #0f1c3f, #1d4383, #0f1c3f, #331270);
+  background-size: 400% 400%;
+
+  animation: fundoMagico 8s ease infinite;
 
   display: flex;
   justify-content: center;
   align-items: center;
-
   padding: 20px;
 }
+
+@keyframes fundoMagico {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 
 /* card principal */
 .container {
