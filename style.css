@@ -1,0 +1,138 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+
+  background: linear-gradient(135deg, #0b1d3a, #2e5fa7);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+}
+
+/* card principal */
+.container {
+  width: 90%;
+  max-width: 500px;
+
+  background: #e9e9e9;
+  padding: 30px;
+  border-radius: 12px;
+
+  text-align: center;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* logo */
+.container > img {
+  display: block;
+  max-width: 100%;
+  width: 220px;
+  height: auto;
+  margin: 0 auto 10px auto;
+}
+
+
+/* título */
+h1 {
+  margin: 15px ;
+}
+
+/* texto */
+p {
+  margin: 20px ;
+}
+
+/* botão */
+button {
+  background-color: #4b2a91;
+  padding: 12px 25px;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  border: none;
+  border-radius: 6px;
+
+  transition: 0.25s;
+}
+
+button:hover {
+  background-color: #2f63d6;
+  transform: scale(1.05);
+}
+
+
+/* card do personagem */
+#personagem {
+  margin-top: 25px;
+  padding: 20px;
+
+  background: #f9f9f9;
+  border-radius: 10px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* nome do personagem */
+#personagem h3 {
+  margin-bottom: 10px;
+}
+
+/* imagem */
+#personagem img {
+  width: 100%;
+  max-width: 250px;
+
+  display: block;
+  margin: 15px auto;
+
+  border-radius: 8px;
+}
+
+/* texto info */
+#personagem p {
+  margin: 6px 0;
+}
+
+/* scroll estável */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* responsividade */
+
+/* tablets */
+@media (max-width: 800px) {
+  .container {
+    padding: 25px;
+  }
+}
+
+/* celulares */
+@media (max-width: 500px) {
+
+  h1 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 15px;
+  }
+
+  button {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  #personagem img {
+    max-width: 200px;
+  }
+}
