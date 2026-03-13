@@ -21,8 +21,7 @@ Um dos principais focos do desenvolvimento foi garantir que a interface fosse **
 
 # 📸 Preview do projeto
 
-![Preview do projeto](<img width="1890" height="916" alt="image" src="https://github.com/user-attachments/assets/56bfe64a-5db2-4b00-a533-79444c65c832" />
-)
+<img width="1890" height="916" alt="image" src="https://github.com/user-attachments/assets/56bfe64a-5db2-4b00-a533-79444c65c832" />
 
 ---
 
