@@ -1,0 +1,30 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Harry Potter - Quem você é?",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "hp-random-characters",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "https://renanldev.github.io/harry-potter-random-characters/templates/iconhp.png",
+      "type": "image/png",
+      "sizes": "1620x1620",
+      "isSquare": true,
+      "isPng": true,
+      "isWebp": false,
+      "isJpg": false,
+      "width": 1620,
+      "is512x512": false,
+      "is256x256": false,
+      "is192x192": false
+    }
+  ],
+  "id": "hp-random-characters",
+  "categories": [
+    "entertainment"
+  ]
+}
