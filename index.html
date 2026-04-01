@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="templates/iconhp.png" />
   <title>Harry Potter - Quem você é?</title>
-  
+
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -18,13 +18,16 @@
     <p><strong>Versão Hogwarts</strong></p>
     <hr />
 
-<p>Execute o feitiço para descobrir quem você é!</p>
+    <p>Execute o feitiço para descobrir quem você é!</p>
 
-<button onclick="ativarSensor()"><strong>REVELIO!</strong></button>
+    <button onclick="tocarSom(); setTimeout(getPersonagem, 400)">
+      <strong>REVELIO!</strong>
+    </button>
+    <audio id="somMagia" src="assets/magia.mp3 "></audio>
 
-<button onclick="getPersonagem()">Sortear sem magia</button>
 
-<div id="personagem"></div>
+    <div id="personagem"></div>
+  </div>
 
   <script src="script.js"></script>
 </body>

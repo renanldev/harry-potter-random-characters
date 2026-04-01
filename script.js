@@ -1,12 +1,23 @@
-let ultimoMovimento = 0;
-let sensorAtivo = false;
+function tocarSom() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
 
-// mensagem inicial
-document.getElementById("personagem").innerHTML = `
-<p>📱 Toque em REVELIO para ativar a magia</p>
-`;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
 
-// função principal
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(400, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.3);
+
+  gain.gain.setValueAtTime(0.3, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+
+  osc.start();
+  osc.stop(ctx.currentTime + 0.4);
+}
+
 async function getPersonagem() {
   let response = await fetch(
     "https://hp-api.onrender.com/api/characters"
@@ -27,86 +38,4 @@ async function getPersonagem() {
     <p><strong>Casa:</strong> ${personagem.house || "Desconhecida"}</p>
     <p><strong>Ator:</strong> ${personagem.actor}</p>
   `;
-}
-
-// 🎤 voz
-function ativarVoz() {
-  const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
-
-  if (!SpeechRecognition) {
-    alert("Reconhecimento de voz não suportado nesse navegador 😢");
-    return;
-  }
-
-  let recognition = new SpeechRecognition();
-
-  recognition.lang = "pt-BR";
-
-  document.getElementById("personagem").innerHTML = `
-    <p>🎤 Diga "Revelio"...</p>
-  `;
-
-  recognition.start();
-
-  recognition.onresult = function(event) {
-    let fala = event.results[0][0].transcript.toLowerCase();
-
-    console.log("Você disse:", fala);
-
-    if (fala.includes("revelio")) {
-      getPersonagem();
-    } else {
-      document.getElementById("personagem").innerHTML = `
-        <p>❌ Tente novamente dizendo "Revelio"</p>
-      `;
-    }
-  };
-}
-
-// 📱 sensor (SACUDIR)
-window.addEventListener("devicemotion", function(event) {
-  if (!sensorAtivo) return;
-
-  let acc = event.accelerationIncludingGravity;
-
-  let movimento =
-    Math.abs(acc.x) + Math.abs(acc.y) + Math.abs(acc.z);
-
-  if (movimento > 30) {
-    let agora = new Date().getTime();
-
-    if (agora - ultimoMovimento > 2000) {
-      ultimoMovimento = agora;
-
-      console.log("📱 Sacudiu!");
-      ativarVoz();
-    }
-  }
-});
-
-// 🔓 ativar sensores (botão)
-function ativarSensor() {
-
-  // iPhone precisa disso
-  if (typeof DeviceMotionEvent.requestPermission === "function") {
-    DeviceMotionEvent.requestPermission()
-      .then(permissionState => {
-        if (permissionState === "granted") {
-          sensorAtivo = true;
-
-          document.getElementById("personagem").innerHTML = `
-            <p>✨ Sacuda o celular e diga "Revelio"</p>
-          `;
-        }
-      })
-      .catch(console.error);
-  } else {
-    // Android
-    sensorAtivo = true;
-
-    document.getElementById("personagem").innerHTML = `
-      <p>✨ Sacuda o celular e diga "Revelio"</p>
-    `;
-  }
 }
