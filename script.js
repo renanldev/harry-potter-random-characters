@@ -1,15 +1,21 @@
-async function getPersonagem() {
+let ultimoMovimento = 0;
+let sensorAtivo = false;
 
+// mensagem inicial
+document.getElementById("personagem").innerHTML = `
+<p>📱 Toque em REVELIO para ativar a magia</p>
+`;
+
+// função principal
+async function getPersonagem() {
   let response = await fetch(
     "https://hp-api.onrender.com/api/characters"
   );
 
   let data = await response.json();
 
-  // filtra personagens com imagem
   let personagensComImagem = data.filter(p => p.image);
 
-  // sorteia
   let randomIndex = Math.floor(Math.random() * personagensComImagem.length);
   let personagem = personagensComImagem[randomIndex];
 
@@ -17,23 +23,29 @@ async function getPersonagem() {
 
   divPersonagem.innerHTML = `
     <h3>${personagem.name}</h3>
-    <img src="${personagem.image}" width="300">
-    <p><strong>Casa:</strong> ${personagem.house}</p>
+    <img src="${personagem.image}">
+    <p><strong>Casa:</strong> ${personagem.house || "Desconhecida"}</p>
     <p><strong>Ator:</strong> ${personagem.actor}</p>
   `;
 }
 
-document.getElementById("personagem").innerHTML = `
-<p>🎤 Diga "Revelio"...</p>
-`;
-
+// 🎤 voz
 function ativarVoz() {
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
 
-  const recognition = new SpeechRecognition();
+  if (!SpeechRecognition) {
+    alert("Reconhecimento de voz não suportado nesse navegador 😢");
+    return;
+  }
+
+  let recognition = new SpeechRecognition();
 
   recognition.lang = "pt-BR";
+
+  document.getElementById("personagem").innerHTML = `
+    <p>🎤 Diga "Revelio"...</p>
+  `;
 
   recognition.start();
 
@@ -43,15 +55,19 @@ function ativarVoz() {
     console.log("Você disse:", fala);
 
     if (fala.includes("revelio")) {
-      console.log("✨ Revelio ativado!");
       getPersonagem();
+    } else {
+      document.getElementById("personagem").innerHTML = `
+        <p>❌ Tente novamente dizendo "Revelio"</p>
+      `;
     }
   };
 }
 
-let ultimoMovimento = 0;
-
+// 📱 sensor (SACUDIR)
 window.addEventListener("devicemotion", function(event) {
+  if (!sensorAtivo) return;
+
   let acc = event.accelerationIncludingGravity;
 
   let movimento =
@@ -63,20 +79,34 @@ window.addEventListener("devicemotion", function(event) {
     if (agora - ultimoMovimento > 2000) {
       ultimoMovimento = agora;
 
-      console.log("Sacudiu! Agora diga 'REVELIO'!");
+      console.log("📱 Sacudiu!");
       ativarVoz();
     }
   }
+});
 
-  function ativarSensor() {
+// 🔓 ativar sensores (botão)
+function ativarSensor() {
+
+  // iPhone precisa disso
   if (typeof DeviceMotionEvent.requestPermission === "function") {
     DeviceMotionEvent.requestPermission()
       .then(permissionState => {
         if (permissionState === "granted") {
-          console.log("Voz ativada! Sacuda o dispositivo e diga 'REVELIO'!");
+          sensorAtivo = true;
+
+          document.getElementById("personagem").innerHTML = `
+            <p>✨ Sacuda o celular e diga "Revelio"</p>
+          `;
         }
       })
       .catch(console.error);
+  } else {
+    // Android
+    sensorAtivo = true;
+
+    document.getElementById("personagem").innerHTML = `
+      <p>✨ Sacuda o celular e diga "Revelio"</p>
+    `;
   }
 }
-});

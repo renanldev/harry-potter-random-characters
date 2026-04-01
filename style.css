@@ -89,6 +89,15 @@ button:hover {
   transform: scale(1.05);
 }
 
+button:last-of-type {
+  margin-top: 10px;
+  background-color: #ccc;
+  color: #333;
+}
+button:last-of-type:hover {
+  background-color: #bbb;
+  transform: scale(1.05);
+}
 
 /* card do personagem */
 #personagem {
